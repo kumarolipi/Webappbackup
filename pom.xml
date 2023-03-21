@@ -39,5 +39,10 @@
             </plugin>
         </plugins>
     </build>
-
+    <distributionManagement>
+        <repository>
+            <id>my-repo</id>
+            <url>http://myrepo.com/maven2</url>
+        </repository>
+    </distributionManagement>
 </project>
