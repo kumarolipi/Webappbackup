@@ -59,8 +59,7 @@ pipeline {
         stage ('Docker build'){
                 steps {
                     script{
-                    sh 'echo "Lasya143@" | sudo -S docker build -t kumarolipi/jenkins-docker .
-'
+                    sh 'sudo docker build -t kumarolipi/jenkins-docker .'
                 }
               }
             }
