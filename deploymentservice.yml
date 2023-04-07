@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment
+  name: web-app
   labels:
-    app: nodeapp
+    app: web-app-svc
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: nodeapp
+      app: web-app-svc
   template:
     metadata:
       labels:
-        app: nodeapp
+        app: web-app-svc
     spec:
       containers:
       - name: nodeserver
@@ -29,7 +29,7 @@ metadata:
   name: nodeapp-service
 spec:
   selector:
-    app: nodeapp
+    app: web-app-svc
   type: LoadBalancer
   ports:
   - protocol: TCP
