@@ -19,6 +19,8 @@ spec:
         image: kumarolipi/jenkins-docker:latest
         ports:
         - containerPort: 3000
+
+
 ---
 
 apiVersion: v1
@@ -27,8 +29,7 @@ metadata:
   name: nodeapp-service
 spec:
   selector:
-    labels:
-      app: web-app-svc
+    app: web-app-svc
   type: LoadBalancer
   ports:
   - protocol: TCP
