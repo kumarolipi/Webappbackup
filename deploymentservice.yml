@@ -29,7 +29,8 @@ metadata:
   name: nodeapp-service
 spec:
   selector:
-    app: web-app-svc
+    labels:
+      app: web-app-svc
   type: LoadBalancer
   ports:
   - protocol: TCP
