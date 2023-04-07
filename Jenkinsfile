@@ -62,6 +62,15 @@ pipeline {
       	                sh 'docker build -t kumarolipi/jenkins-docker .'
                   }
               }
+              stage('Docker Push') {
+    	            stpes{
+    	                script{
+                            withCredentials([string(credentialsId: 'Docker-push', variable: 'Docker-push')]) {
+                            sh 'docker login -u kumarolipi -p ${Docker-push}'
+                        }
+                            sh 'docker push kumarolipi/jenkins-docker'
+
+                  }
+              }
            }
         }
-
