@@ -26,6 +26,7 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+            <plugin>
             <distributionManagement>
                 <repository>
                     <id>central</id>
@@ -33,6 +34,7 @@
                     <url>http://13.232.140.174:8081/artifactory/web-app-libs-release</url>
                 </repository>
             </distributionManagement>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
