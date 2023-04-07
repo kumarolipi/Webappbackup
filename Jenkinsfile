@@ -56,13 +56,13 @@ pipeline {
                         )
                     }
                 }
-        stage ('Docker build'){
-                steps {
-                    script{
-                    sh 'sudo -S docker build -t kumarolipi/jenkins-docker .'
-                }
+              stage('Docker Build') {
+    	            agent any
+                        steps {
+      	                sh 'docker build -t kumarolipi/jenkins-docker .'
+                  }
               }
-            }
+           }
         }
     }
 
