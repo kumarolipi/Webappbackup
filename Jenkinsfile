@@ -39,9 +39,9 @@
                       bypassProxy: true,
                        timeout: 600
                             )
-                }
-            }
-            stage('Upload'){
+                        }
+                    }
+                stage('Upload'){
                 steps{
                     rtUpload (
                      serverId:"Jfrog-Server" ,
@@ -56,14 +56,14 @@
                             )
                         }
                     }
-                  stage('Docker Build') {
-                        agent any
-                            steps {
-                            sh 'docker build -t kumarolipi/jenkins-docker .'
+                stage('Docker Build') {
+                    agent any
+                          steps {
+                          sh 'docker build -t kumarolipi/jenkins-docker .'
                       }
                   }
                   stage('Docker Push') {
-                        stpes{
+                        steps{
                             script{
                                 withCredentials([string(credentialsId: 'Docker-push', variable: 'Docker-push')]) {
                                 sh 'docker login -u kumarolipi -p ${Docker-push}'
