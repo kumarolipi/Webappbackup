@@ -62,7 +62,7 @@
                           sh 'docker build -t kumarolipi/jenkins-docker .'
                       }
                   }
-                  stage('Docker Push') {
+                stage('Docker Push') {
                         steps{
                             script{
                                 withCredentials([string(credentialsId: 'Docker-push', variable: 'Docker-push')]) {
@@ -73,5 +73,12 @@
                       }
                   }
                }
-            }
+                stage('Deploying App to Kubernetes') {
+                    steps {
+                        script {
+                            kubernetesDeploy(configs: "deploymentservice.yaml", kubeconfigId: "kubernetes")
+                                }
+                           }
+                    }
+                }
         }
