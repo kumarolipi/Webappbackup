@@ -1,0 +1,92 @@
+SonarQube:
+user: Lava
+squ_63a95a8110ca432c8a327490af9e5659d8dff156
+
+mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=Lava \
+  -Dsonar.host.url=http://3.110.210.149:9000 \
+  -Dsonar.login=squ_63a95a8110ca432c8a327490af9e5659d8dff156
+================================================
+
+
+Jfrog:
+==========================================================
+username: jenkins
+eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiIzTHZvak1UQ3o3cHJWcmJIMXl1bmY4X29kQzBZQkRv6666cTRSZFVQX0Y3dHhBIn0.eyJzdWIiOiJqZmFjQDAxZ3hkNmV3ZXR4cHA0MGYxcHNwZmQwZHRlXC91c2Vyc1wvamVua2lucyIsInNjcCI6ImFwcGxpZWQtcGVybWlzc2lvbnNcL2FkbWluIiwiYXVkIjoiKkAqIiwiaXNzIjoiamZmZUAwMWd4ZDZld2V0eHBwNDBmMXBzcGZkMGR0ZSIsImlhdCI6MTY4MDg1Mjg4MywianRpIjoiNTU4ZmM3ZWUtMDI0Ny00MzA3LWE1MGUtZjg5ZDRiOTJjMDE0In0.kcO3QiCkmf_yIOazZ4e1hay0rmEUH919_rYs-eCvQMPXgaDfxUwRyVyQfLbOAfjh5esFN9s3mtPnZuCtc-bFit4GqioIvnobkHWl6-AAYR5-34JXyj3uRGEV9ygTl2B0Hv65a86fbUCxUorjcym4VLvA0vzlrHp2Ao2MrTbLrpF25x-iNW6bUse5Hmm87-LdAs0mWA1u9kdw7LR0tnGgcUmYgMk_8j-J0gnG9PQue1H0UU3PmgexOZFABqRCbeLVJJTJuJQC5REfgv6Z5E3VwiU6_2oscIP42-H9d_75qgJpH9Aw-fLHcwU2S5pVDFXgwOuSbMsamipbikhCt6v0aA
+
+SQ: 52.66.210.208
+JF: 13.232.140.174
+Jenkins: 65.0.130.101
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pipeline {
+    agent any
+	tools {
+	    maven "3.6.3"
+	 	}
+	stages {
+	    stage('Git CheckOut') {
+		    steps {
+			   git branch: 'main', credentialsId: 'My private token login creds', url: 'https://github.com/logicopslab/WebAppForJenkins.git'
+			}
+		}
+        stage('Clean and Install') {
+            steps {
+                bat 'mvn clean install'
+            }
+        }
+        stage ('Package'){
+            steps {
+                bat 'mvn package'
+             }
+        }
+	stage ('Server'){
+            steps {
+               rtServer (
+                 id: "Artifactory",
+                 url: 'http://localhost:8082/artifactory',
+                 username: 'ravish',
+                  password: 'YouPasswordHere',
+                  bypassProxy: true,
+                   timeout: 300
+                        )
+            }
+        }
+        stage('Upload'){
+            steps{
+                rtUpload (
+                 serverId:"Artifactory" ,
+                  spec: '''{
+                   "files": [
+                      {
+                      "pattern": "*.war",
+                      "target": "logic-ops-lab-libs-snapshot-local"
+                      }
+                            ]
+                           }''',
+                        )
+            }
+        }
+        stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "Artifactory"
+                )
+            }
+        }
+    }
+}
