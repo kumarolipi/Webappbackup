@@ -66,7 +66,7 @@
                         steps{
                             script{
                                 withCredentials([string(credentialsId: 'Docker-push', variable: 'Docker-push')]) {
-                                sh 'docker login -u kumarolipi -p ${Docker-push}'
+                                sh 'echo "Lasya143@" | docker login -u kumarolipi --password-stdin'
                             }
                                 sh 'docker push kumarolipi/jenkins-docker'
 
