@@ -29,7 +29,7 @@
                         }
                     }
                 }
-                stage ('Login to Jfrog Server'){
+                stage ('Package uploading to Jfrog'){
                 steps {
                    rtServer (
                      id: "Jfrog-Server",
