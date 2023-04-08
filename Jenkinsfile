@@ -59,7 +59,7 @@
                 stage('Docker Build') {
                     agent any
                           steps {
-                          sh 'sudo docker build -t kumarolipi/jenkins-docker .'
+                          sh 'echo Lasya143@ | sudo -S docker build -t kumarolipi/jenkins-docker .'
                       }
                   }
                 stage('Docker Push') {
