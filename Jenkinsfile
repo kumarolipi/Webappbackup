@@ -12,7 +12,7 @@
                         git branch: 'main', credentialsId: 'ce974fa1-13fe-4145-8212-5452dce5b6f4', url: 'https://github.com/Lavakumarollipi/WebApp.git'
                         }
                     }
-                stage ('build'){
+                stage ('Build'){
                     steps {
                         sh 'mvn clean install'
                     }
