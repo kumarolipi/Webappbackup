@@ -1,24 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app
   labels:
-    app: web-app-svc
+    app: my-dep
+  name: my-dep
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: web-app-svc
+      app: my-dep
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
-        app: web-app-svc
+        app: my-dep
     spec:
       containers:
-      - name: nodeserver
-        image: kumarolipi/jenkins-docker:latest
-        ports:
-        - containerPort: 3000
+      - image: kumarolipi/jenkins-docker
+        imagePullPolicy: Always
+        name: jenkins-docker
 
 
 ---
@@ -26,13 +30,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeapp-service
+  labels:
+    app: my-dep
+  name: my-lbs
 spec:
-  selector:
-    app: web-app-svc
-  type: LoadBalancer
   ports:
-  - protocol: TCP
-    port: 5000
-    targetPort: 3000
-    nodePort: 31110
+  - name: 8080-80
+    nodePort: 30213
+    port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: my-dep
+  type: LoadBalancer

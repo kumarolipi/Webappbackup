@@ -1,3 +1,15 @@
+Master:3.111.214.200
+SQ: 3.110.106.6
+JFROG: 65.0.97.254
+Jenkins:3.110.83.153
+
+
+
+
+
+
+
+
 SonarQube:
 user: Lava
 squ_63a95a8110ca432c8a327490af9e5659d8dff156
