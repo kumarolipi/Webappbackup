@@ -39,11 +39,7 @@
                       bypassProxy: true,
                        timeout: 600
                             )
-                        }
-                    }
-                stage('Uploading to Jfrog'){
-                steps{
-                    rtUpload (
+                   rtUpload (
                      serverId:"Jfrog-Server" ,
                       spec: '''{
                        "files": [
