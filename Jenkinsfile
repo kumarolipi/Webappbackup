@@ -29,7 +29,7 @@
                         }
                     }
                 }
-                stage ('Server'){
+                stage ('Login to Jfrog Server'){
                 steps {
                    rtServer (
                      id: "Jfrog-Server",
@@ -41,7 +41,7 @@
                             )
                         }
                     }
-                stage('Upload'){
+                stage('Uploading to Jfrog'){
                 steps{
                     rtUpload (
                      serverId:"Jfrog-Server" ,
