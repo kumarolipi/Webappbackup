@@ -33,7 +33,7 @@
                 steps {
                    rtServer (
                      id: "Jfrog-Server",
-                     url: 'http://65.0.97.254:8082/artifactory',
+                     url: 'http://13.235.68.119:8082/artifactory',
                      username: 'jenkins',
                       password: 'Lava143@',
                       bypassProxy: true,
